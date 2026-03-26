@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TRS MVP | Home</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="home-wire-page">
+    <div class="home-wire-bg" aria-hidden="true">
+      <video
+        class="home-wire-bg-video"
+        data-home-video
+        data-src="assets/Street%2002%20(wide).mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+    </div>
+
+    <header class="nav1-header nav1-header--dark">
+      <nav class="nav1-bar">
+        <button
+          class="nav1-menu"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="public-nav-overlay"
+          data-public-nav-toggle
+        >
+          <span class="menu-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+        <a class="nav1-wordmark" href="index.html">THE ROUTINE SERVICE</a>
+        <a class="nav1-login" href="member-home.html">Log in</a>
+      </nav>
+    </header>
+
+    <aside
+      id="public-nav-overlay"
+      class="offerings-public-overlay nav1-overlay"
+      aria-label="Primary"
+      data-public-nav-overlay
+      hidden
+    >
+      <nav class="offerings-public-overlay-nav">
+        <a href="index.html" class="overlay-link" style="--i: 0" data-nav-link>Home</a>
+        <a href="services.html" class="overlay-link" style="--i: 1" data-nav-link>Offerings</a>
+        <a href="about.html" class="overlay-link" style="--i: 2" data-nav-link>About</a>
+        <a href="contact.html" class="overlay-link" style="--i: 3" data-nav-link>Contact</a>
+      </nav>
+    </aside>
+
+    <main class="home-wire-main">
+      <section class="home-wire-hero">
+        <h1>Begin where you are,<br />Evolve with intention.</h1>
+        <a class="home-wire-cta" href="member-space.html">Become a Member</a>
+      </section>
+    </main>
+
+    <footer class="home-wire-footer">
+      <a href="index.html" aria-label="The Routine Service Home">
+        <img src="https://www.figma.com/api/mcp/asset/302aeea3-f1c0-4a42-810e-38fe1b221da0" alt="" />
+      </a>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

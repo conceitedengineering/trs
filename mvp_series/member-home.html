@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>TRS MVP | Member Home</title><link rel="stylesheet" href="styles.css" /></head>
+  <body class="dark-zone-page">
+    <div class="dark-zone-bg" aria-hidden="true"></div>
+    <header class="nav2-header">
+      <nav class="nav2-bar">
+        <a class="nav2-logo" href="index.html" aria-label="The Routine Service">
+          <img src="https://www.figma.com/api/mcp/asset/24c7f85c-dfee-4d7a-a454-5d0d7ac755bf" alt="" />
+        </a>
+        <div class="nav2-right">
+          <span class="nav2-current">Member Home</span>
+          <button
+            class="nav2-menu"
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+            aria-controls="public-nav-overlay"
+            data-public-nav-toggle
+          >
+            <span class="menu-lines" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <aside
+      id="public-nav-overlay"
+      class="offerings-public-overlay nav2-overlay"
+      aria-label="Primary"
+      data-public-nav-overlay
+      hidden
+    >
+      <nav class="offerings-public-overlay-nav">
+        <a href="index.html" class="overlay-link" style="--i: 0" data-nav-link>Home</a>
+        <a href="services.html" class="overlay-link" style="--i: 1" data-nav-link>Offerings</a>
+        <a href="about.html" class="overlay-link" style="--i: 2" data-nav-link>About</a>
+        <a href="contact.html" class="overlay-link" style="--i: 3" data-nav-link>Contact</a>
+        <a href="member-space.html" class="overlay-link" style="--i: 4" data-nav-link>Member Space</a>
+        <a href="member-home.html" class="overlay-link" style="--i: 5" data-nav-link>Log in</a>
+      </nav>
+    </aside>
+
+    <main class="trs-main">
+      <section class="trs-hero">
+        <h1 class="trs-hero-title">Welcome back.</h1>
+        <div class="trs-hero-copy">
+          <p>Member Home is a place of orientation and return.</p>
+          <p>Every login answers: what is new, where to go next, and how to re-enter quickly.</p>
+        </div>
+      </section>
+      <section class="trs-grid">
+        <article class="trs-card">
+          <h3>What's New</h3>
+          <p>Newest journal entry</p>
+          <p>Newest recipe</p>
+          <p>Newest playlist</p>
+        </article>
+        <article class="trs-card">
+          <h3>Read / Cook / Listen</h3>
+          <p>One-click previews into each recurring content pillar.</p>
+          <div class="trs-links">
+            <a class="trs-link" href="journal.html">Read</a>
+            <a class="trs-link" href="recipes.html">Cook</a>
+            <a class="trs-link" href="playlists.html">Listen</a>
+          </div>
+        </article>
+        <article class="trs-card">
+          <h3>Continue Where You Left Off</h3>
+          <p>Resume your last Method checkpoint and continue from where you paused.</p>
+          <div class="trs-links">
+            <a class="trs-link" href="method-content.html">Resume Method Content</a>
+          </div>
+        </article>
+        <article class="trs-card">
+          <h3>Method Content</h3>
+          <p>If no resume state is available, start directly inside Method content.</p>
+          <div class="trs-links">
+            <a class="trs-link" href="method-content.html">Open Method Content</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="trs-footer">The Routine Service</footer><script src="app.js"></script>
+  </body>
+</html>

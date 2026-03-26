@@ -1,0 +1,267 @@
+:root {
+  --bg: #efeee8;
+  --panel: #faf9f4;
+  --ink: #20201c;
+  --muted: #66665d;
+  --line: #d0cfc4;
+  --line-strong: #9f9f92;
+  --focus: #32281d;
+  --shadow: 0 14px 28px rgba(20, 20, 18, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at 15% 12%, #f6f5ef, var(--bg) 56%);
+}
+
+.app-shell {
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(320px, 440px) 1fr;
+}
+
+.controls {
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+  padding: 18px 16px 24px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.panel-header {
+  margin-bottom: 14px;
+}
+
+.panel-header h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+}
+
+.panel-header p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.toolbar-color {
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #f1f0e8;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.toolbar-color span {
+  letter-spacing: 0.04em;
+}
+
+.toolbar-color input[type="color"] {
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  width: 100%;
+  min-height: 26px;
+  padding: 0;
+}
+
+button,
+select,
+input[type="number"] {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--line-strong);
+  background: #f1f0e8;
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 9px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #1f1b17;
+  color: #f4f3eb;
+  border-color: #1f1b17;
+}
+
+button:hover {
+  filter: brightness(0.97);
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+details summary:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fdfcf8;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+summary {
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.group {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+
+.group h3 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.field > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+output {
+  color: var(--muted);
+  min-width: 46px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+select,
+input[type="number"],
+input[type="color"],
+input[type="range"] {
+  width: 100%;
+}
+
+input[type="color"] {
+  height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #fff;
+  padding: 2px;
+}
+
+input[type="range"] {
+  accent-color: #2e2a25;
+}
+
+.field.inline {
+  display: flex;
+  align-items: center;
+  grid-template-columns: none;
+  gap: 10px;
+}
+
+.field.inline input {
+  width: 16px;
+  height: 16px;
+}
+
+.status {
+  margin-top: 12px;
+}
+
+.status p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.preview-wrap {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.preview-frame {
+  width: min(86vmin, calc(100vw - 520px));
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid #cecbbf;
+  background: #231e1a;
+}
+
+#previewSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#paperRect {
+  fill: #251f1b;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    max-height: none;
+  }
+
+  .preview-wrap {
+    padding: 14px;
+  }
+
+  .preview-frame {
+    width: min(96vw, 760px);
+  }
+}

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spiro Lab SVG Tool</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231f1b17'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23f5e7d7' stroke-width='2'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="controls" aria-label="Spiro controls">
+      <header class="panel-header">
+        <h1>Spiro Lab</h1>
+        <p>SVG-first generative line tool</p>
+      </header>
+
+      <section class="toolbar" aria-label="Actions">
+        <button id="randomizeBtn" type="button">Randomize</button>
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="applyPresetBtn" type="button">Apply Preset</button>
+        <button id="exportBtn" type="button" class="primary">Export SVG</button>
+        <button id="copySvgBtn" type="button">Copy SVG</button>
+        <button id="saveJsonBtn" type="button">Save Params JSON</button>
+        <button id="loadJsonBtn" type="button">Load Params JSON</button>
+        <label class="toolbar-color" for="backgroundColorInput">
+          <span>BG</span>
+          <input id="backgroundColorInput" data-bind="ui.backgroundColor" data-type="string" type="color" />
+        </label>
+        <input id="loadJsonInput" type="file" accept=".json,.spiro.json" hidden />
+      </section>
+
+      <section class="panel" aria-label="Core Controls">
+        <h2>Core</h2>
+
+        <label class="field">
+          <span>Preset</span>
+          <select id="presetSelect"></select>
+        </label>
+
+        <label class="field">
+          <span>Family</span>
+          <select data-bind="family" data-type="string">
+            <option value="ring">Ring Lattice</option>
+            <option value="spiralArms">Spiral Arms</option>
+            <option value="flowerCone">Flower Cone</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Seed</span>
+          <input data-bind="seed" data-type="int" type="number" min="1" max="99999999" step="1" />
+        </label>
+
+        <label class="field">
+          <span>Size Preset</span>
+          <select data-bind="sizePreset" data-type="int">
+            <option value="1080">1080 x 1080</option>
+            <option value="2048">2048 x 2048</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Stroke Color</span>
+          <input data-bind="strokeColor" data-type="string" type="color" />
+        </label>
+
+        <label class="field">
+          <span>Blend Mode</span>
+          <select data-bind="blendMode" data-type="string">
+            <option value="normal">normal</option>
+            <option value="screen">screen</option>
+            <option value="multiply">multiply</option>
+            <option value="overlay">overlay</option>
+            <option value="soft-light">soft-light</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Stroke Width <output data-value-for="strokeWidth"></output></span>
+          <input data-bind="strokeWidth" data-type="float" type="range" min="0.1" max="4" step="0.01" />
+        </label>
+
+        <label class="field">
+          <span>Opacity <output data-value-for="opacity"></output></span>
+          <input data-bind="opacity" data-type="float" type="range" min="0.05" max="1" step="0.01" />
+        </label>
+
+        <label class="field">
+          <span>Samples <output data-value-for="samples"></output></span>
+          <input data-bind="samples" data-type="int" type="range" min="60" max="1400" step="10" />
+        </label>
+
+        <label class="field">
+          <span>Global Scale <output data-value-for="globalScale"></output></span>
+          <input data-bind="globalScale" data-type="float" type="range" min="0.2" max="2" step="0.01" />
+        </label>
+
+        <label class="field">
+          <span>Rotation <output data-value-for="rotationDeg"></output></span>
+          <input data-bind="rotationDeg" data-type="float" type="range" min="-180" max="180" step="0.1" />
+        </label>
+
+        <label class="field">
+          <span>Center X <output data-value-for="centerX"></output></span>
+          <input data-bind="centerX" data-type="float" type="range" min="-0.5" max="0.5" step="0.001" />
+        </label>
+
+        <label class="field">
+          <span>Center Y <output data-value-for="centerY"></output></span>
+          <input data-bind="centerY" data-type="float" type="range" min="-0.5" max="0.5" step="0.001" />
+        </label>
+
+        <label class="field">
+          <span id="primarySizeLabel">Main Radius <output data-value-for="ui.primarySize"></output></span>
+          <input id="primarySizeControl" data-bind="ui.primarySize" data-type="float" type="range" min="30" max="500" step="1" />
+        </label>
+
+        <label class="field">
+          <span id="motifCountLabel">Motif Count <output data-value-for="ui.motifCount"></output></span>
+          <input id="motifCountControl" data-bind="ui.motifCount" data-type="int" type="range" min="2" max="160" step="1" />
+        </label>
+
+        <label class="field inline">
+          <input data-bind="ui.paperPreview" data-type="boolean" type="checkbox" />
+          <span>Paper Preview (visual only)</span>
+        </label>
+      </section>
+
+      <details class="panel" open>
+        <summary>Advanced</summary>
+
+        <section class="group">
+          <h3>Noise / Shape</h3>
+          <label class="field">
+            <span>Smoothing <output data-value-for="smoothing"></output></span>
+            <input data-bind="smoothing" data-type="float" type="range" min="0" max="1" step="0.01" />
+          </label>
+          <label class="field">
+            <span>Jitter Amp <output data-value-for="jitterAmp"></output></span>
+            <input data-bind="jitterAmp" data-type="float" type="range" min="0" max="16" step="0.1" />
+          </label>
+          <label class="field">
+            <span>Jitter Freq <output data-value-for="jitterFreq"></output></span>
+            <input data-bind="jitterFreq" data-type="float" type="range" min="0.2" max="20" step="0.1" />
+          </label>
+        </section>
+
+        <section class="group family-group" data-family-group="ring">
+          <h3>Ring Lattice</h3>
+          <label class="field">
+            <span>Radius <output data-value-for="ring.radius"></output></span>
+            <input data-bind="ring.radius" data-type="float" type="range" min="20" max="500" step="1" />
+          </label>
+          <label class="field">
+            <span>Band Width <output data-value-for="ring.bandWidth"></output></span>
+            <input data-bind="ring.bandWidth" data-type="float" type="range" min="1" max="220" step="1" />
+          </label>
+          <label class="field">
+            <span>Loop Count <output data-value-for="ring.loopCount"></output></span>
+            <input data-bind="ring.loopCount" data-type="int" type="range" min="4" max="220" step="1" />
+          </label>
+          <label class="field">
+            <span>Phase Offset <output data-value-for="ring.phaseOffset"></output></span>
+            <input data-bind="ring.phaseOffset" data-type="float" type="range" min="0" max="1" step="0.001" />
+          </label>
+          <label class="field">
+            <span>Petal Roundness <output data-value-for="ring.petalRoundness"></output></span>
+            <input data-bind="ring.petalRoundness" data-type="float" type="range" min="0" max="1" step="0.01" />
+          </label>
+        </section>
+
+        <section class="group family-group" data-family-group="spiralArms">
+          <h3>Spiral Arms</h3>
+          <label class="field">
+            <span>Variant</span>
+            <select data-bind="spiralArms.variant" data-type="string">
+              <option value="orbitStamp">Orbit Stamp</option>
+              <option value="waveRibbon">Wave Ribbon</option>
+              <option value="roseOrbit">Rose Orbit</option>
+              <option value="noiseDrift">Noise Drift</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Arm Count <output data-value-for="spiralArms.armCount"></output></span>
+            <input data-bind="spiralArms.armCount" data-type="int" type="range" min="2" max="12" step="1" />
+          </label>
+          <label class="field">
+            <span>Arm Length <output data-value-for="spiralArms.armLength"></output></span>
+            <input data-bind="spiralArms.armLength" data-type="float" type="range" min="20" max="600" step="1" />
+          </label>
+          <label class="field">
+            <span>Arm Curl <output data-value-for="spiralArms.armCurl"></output></span>
+            <input data-bind="spiralArms.armCurl" data-type="float" type="range" min="0" max="3" step="0.001" />
+          </label>
+          <label class="field">
+            <span>Arm Spread <output data-value-for="spiralArms.armSpread"></output></span>
+            <input data-bind="spiralArms.armSpread" data-type="float" type="range" min="0" max="2" step="0.001" />
+          </label>
+          <label class="field">
+            <span>Stamp Size <output data-value-for="spiralArms.stampSize"></output></span>
+            <input data-bind="spiralArms.stampSize" data-type="float" type="range" min="1" max="220" step="1" />
+          </label>
+          <label class="field">
+            <span>Stamp Spacing <output data-value-for="spiralArms.stampSpacing"></output></span>
+            <input data-bind="spiralArms.stampSpacing" data-type="float" type="range" min="2" max="80" step="1" />
+          </label>
+          <label class="field">
+            <span>Stamp Rotation <output data-value-for="spiralArms.stampRotation"></output></span>
+            <input data-bind="spiralArms.stampRotation" data-type="float" type="range" min="-180" max="180" step="1" />
+          </label>
+          <label class="field">
+            <span>Mod Depth <output data-value-for="spiralArms.modDepth"></output></span>
+            <input data-bind="spiralArms.modDepth" data-type="float" type="range" min="0" max="2.5" step="0.01" />
+          </label>
+          <label class="field">
+            <span>Mod Frequency <output data-value-for="spiralArms.modFreq"></output></span>
+            <input data-bind="spiralArms.modFreq" data-type="float" type="range" min="0.2" max="12" step="0.01" />
+          </label>
+        </section>
+
+        <section class="group family-group" data-family-group="flowerCone">
+          <h3>Flower Cone</h3>
+          <label class="field">
+            <span>Petal Count <output data-value-for="flowerCone.petalCount"></output></span>
+            <input data-bind="flowerCone.petalCount" data-type="int" type="range" min="2" max="16" step="1" />
+          </label>
+          <label class="field">
+            <span>Inner Radius <output data-value-for="flowerCone.innerRadius"></output></span>
+            <input data-bind="flowerCone.innerRadius" data-type="float" type="range" min="1" max="300" step="1" />
+          </label>
+          <label class="field">
+            <span>Outer Radius <output data-value-for="flowerCone.outerRadius"></output></span>
+            <input data-bind="flowerCone.outerRadius" data-type="float" type="range" min="30" max="620" step="1" />
+          </label>
+          <label class="field">
+            <span>Twist <output data-value-for="flowerCone.twist"></output></span>
+            <input data-bind="flowerCone.twist" data-type="float" type="range" min="-2" max="2" step="0.001" />
+          </label>
+          <label class="field">
+            <span>Taper <output data-value-for="flowerCone.taper"></output></span>
+            <input data-bind="flowerCone.taper" data-type="float" type="range" min="0.2" max="3" step="0.001" />
+          </label>
+        </section>
+      </details>
+
+      <section class="status" aria-live="polite">
+        <p id="statusLine">Ready.</p>
+      </section>
+    </aside>
+
+    <section class="preview-wrap">
+      <div class="preview-frame" id="previewFrame">
+        <svg id="previewSvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Generative spiro preview">
+          <rect id="paperRect" x="0" y="0" width="100%" height="100%" />
+          <g id="artRoot"></g>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
