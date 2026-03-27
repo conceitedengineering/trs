@@ -1,4 +1,60 @@
 const path = window.location.pathname.split('/').pop() || 'index.html';
+const NAV_PAGE_LABELS = {
+  'index.html': 'Home',
+  'about.html': 'About',
+  'services.html': 'Offerings',
+  'contact.html': 'Contact',
+  'terms.html': 'Terms',
+  'disclaimer.html': 'Disclaimer',
+  'journal.html': 'Journal',
+  'journal-start-signals.html': 'Journal',
+  'journal-patterns-essay.html': 'Journal',
+  'journal-evening-reset.html': 'Journal',
+  'journal-skin-rhythm-notes.html': 'Journal',
+  'journal-steady-progress.html': 'Journal',
+  'journal-nervous-system-check.html': 'Journal',
+  'recipes.html': 'Recipes',
+  'recipe-brothy-sausage.html': 'Recipes',
+  'recipe-golden-miso.html': 'Recipes',
+  'recipe-citrus-chickpea.html': 'Recipes',
+  'recipe-herbed-salmon-rice.html': 'Recipes',
+  'recipe-mineral-broth.html': 'Recipes',
+  'recipe-roasted-squash-soup.html': 'Recipes',
+  'playlists.html': 'Playlists',
+  'playlist-current.html': 'Playlists',
+  'playlist-night-archive.html': 'Playlists',
+};
+
+const textureHost = document.querySelector('.offerings-bg, .trs-dark-bg, .dark-zone-bg');
+if (textureHost) {
+  const root = document.documentElement;
+  const textureVar = getComputedStyle(root).getPropertyValue('--trs-texture-image').trim();
+  const textureUrls = Array.from(textureVar.matchAll(/url\((['"]?)(.*?)\1\)/g), (match) => match[2]);
+  let textureSrc = textureUrls[0];
+  if (textureUrls.length > 1) {
+    textureSrc = window.devicePixelRatio > 1.25 ? textureUrls[textureUrls.length - 1] : textureUrls[0];
+  }
+
+  const markTextureReady = () => {
+    root.classList.add('trs-texture-ready');
+  };
+
+  if (textureSrc) {
+    const preloadTexture = new Image();
+    preloadTexture.decoding = 'async';
+    preloadTexture.loading = 'eager';
+    preloadTexture.fetchPriority = 'high';
+    preloadTexture.onload = markTextureReady;
+    preloadTexture.onerror = markTextureReady;
+    preloadTexture.src = textureSrc;
+
+    if (preloadTexture.complete) {
+      markTextureReady();
+    }
+  } else {
+    markTextureReady();
+  }
+}
 
 const publicNavToggle = document.querySelector('[data-public-nav-toggle]');
 const publicNavOverlay = document.querySelector('[data-public-nav-overlay]');
@@ -81,6 +137,20 @@ document.querySelectorAll('[data-nav-link]').forEach((link) => {
     link.setAttribute('aria-current', 'page');
   }
 });
+
+const nav1Bar = document.querySelector('.nav1-bar');
+const nav1Menu = nav1Bar?.querySelector('.nav1-menu');
+if (path !== 'index.html' && nav1Bar && nav1Menu && !nav1Bar.querySelector('.nav1-current')) {
+  const leftCluster = document.createElement('div');
+  leftCluster.className = 'nav1-left';
+  nav1Bar.insertBefore(leftCluster, nav1Menu);
+  leftCluster.appendChild(nav1Menu);
+
+  const current = document.createElement('span');
+  current.className = 'nav1-current';
+  current.textContent = NAV_PAGE_LABELS[path] || 'Page';
+  leftCluster.appendChild(current);
+}
 
 document.querySelectorAll('footer').forEach((footer) => {
   if (footer.querySelector('.footer-legal')) return;

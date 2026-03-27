@@ -37,12 +37,45 @@
     </aside>
 
 <main class="trs-main">
-  <section class="trs-hero"><h1 class="trs-hero-title">Playlists provide atmosphere for routine states.</h1><div class="trs-hero-copy"><p>Latest playlist featured at top with immediate play. Older playlists move into clean chronological archive.</p><p>Desired feeling: quickly enter a mode.</p></div></section>
-  <section class="trs-grid">
-    <article class="trs-card"><h3>Current Playlist</h3><p>Featured player at top for immediate start.</p></article>
-    <article class="trs-card"><h3>Archive</h3><p>Chronological browse with clear naming and mood tags.</p></article>
-    <article class="trs-card"><h3>Entry Detail</h3><p>Context note + player + adjacent recommendations.</p></article>
-    <article class="trs-card"><h3>UX Rule</h3><p>One-click play or one-click archive scan.</p></article>
+  <section class="trs-hero"><h1 class="trs-hero-title">Playlists</h1><div class="trs-hero-copy"><p>Current playlist up top, archive below.</p><p>Use this page to enter the active mix or revisit older rhythm sets.</p></div></section>
+
+  <section class="light-feed" aria-label="Current playlist">
+    <h2 class="light-feed-title">Current Playlist</h2>
+    <article class="content-chip">
+      <a class="content-chip-link" href="playlist-current.html">
+        <div class="content-chip-media content-chip-media--img-playlist-current" aria-hidden="true"></div>
+        <div class="content-chip-body">
+          <p class="content-chip-kicker">Now Playing</p>
+          <h3 class="content-chip-title">Steady Morning Mix</h3>
+          <p class="content-chip-text">Low-lift focus tracks for routine blocks, prep, and gentle transitions.</p>
+        </div>
+      </a>
+    </article>
+  </section>
+
+  <section class="light-feed light-feed--two" aria-label="Playlist archive">
+    <h2 class="light-feed-title">Archive</h2>
+    <article class="content-chip">
+      <a class="content-chip-link" href="playlist-night-archive.html">
+        <div class="content-chip-media content-chip-media--img-playlist-archive" aria-hidden="true"></div>
+        <div class="content-chip-body">
+          <p class="content-chip-kicker">Archive</p>
+          <h3 class="content-chip-title">Night Unwind</h3>
+          <p class="content-chip-text">Decompression tracks for late evenings and slower transitions.</p>
+        </div>
+      </a>
+    </article>
+
+    <article class="content-chip">
+      <a class="content-chip-link" href="playlist-current.html">
+        <div class="content-chip-media content-chip-media--img-playlist-current" aria-hidden="true"></div>
+        <div class="content-chip-body">
+          <p class="content-chip-kicker">Archive</p>
+          <h3 class="content-chip-title">Focus Window</h3>
+          <p class="content-chip-text">A tighter concentration playlist for planning and admin blocks.</p>
+        </div>
+      </a>
+    </article>
   </section>
 </main>
 

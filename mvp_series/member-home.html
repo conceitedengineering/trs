@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>TRS MVP | Member Home</title><link rel="stylesheet" href="styles.css" /></head>
-  <body class="dark-zone-page">
-    <div class="dark-zone-bg" aria-hidden="true"></div>
+  <body class="offerings-page member-home-page">
+    <div class="offerings-bg" aria-hidden="true"></div>
     <header class="nav2-header">
       <nav class="nav2-bar">
         <a class="nav2-logo" href="index.html" aria-label="The Routine Service">
@@ -45,47 +45,81 @@
       </nav>
     </aside>
 
-    <main class="trs-main">
-      <section class="trs-hero">
-        <h1 class="trs-hero-title">Welcome back.</h1>
-        <div class="trs-hero-copy">
-          <p>Member Home is a place of orientation and return.</p>
-          <p>Every login answers: what is new, where to go next, and how to re-enter quickly.</p>
-        </div>
+    <main class="member-home-main">
+      <section class="member-home-intro">
+        <h1 class="member-home-title">Welcome back, Camille.</h1>
+        <p class="member-home-bulletin">
+          <span>Bulletin</span>
+          “The greatest wealth is health.” — Virgil
+        </p>
       </section>
-      <section class="trs-grid">
-        <article class="trs-card">
-          <h3>What's New</h3>
-          <p>Newest journal entry</p>
-          <p>Newest recipe</p>
-          <p>Newest playlist</p>
-        </article>
-        <article class="trs-card">
-          <h3>Read / Cook / Listen</h3>
-          <p>One-click previews into each recurring content pillar.</p>
-          <div class="trs-links">
-            <a class="trs-link" href="journal.html">Read</a>
-            <a class="trs-link" href="recipes.html">Cook</a>
-            <a class="trs-link" href="playlists.html">Listen</a>
-          </div>
-        </article>
-        <article class="trs-card">
-          <h3>Continue Where You Left Off</h3>
-          <p>Resume your last Method checkpoint and continue from where you paused.</p>
+
+      <section class="member-home-columns" aria-label="Member Home dashboard">
+        <article class="member-home-column">
+          <h2>Continue Where You Left Off</h2>
+          <p>Resume the next Method checkpoint and pick up exactly where you paused.</p>
           <div class="trs-links">
             <a class="trs-link" href="method-content.html">Resume Method Content</a>
           </div>
         </article>
-        <article class="trs-card">
-          <h3>Method Content</h3>
-          <p>If no resume state is available, start directly inside Method content.</p>
-          <div class="trs-links">
-            <a class="trs-link" href="method-content.html">Open Method Content</a>
-          </div>
+        <article class="member-home-column">
+          <h2>What's New</h2>
+          <article class="content-chip">
+            <a class="content-chip-link" href="recipe-brothy-sausage.html">
+              <div class="content-chip-media content-chip-media--img-brothy" aria-hidden="true"></div>
+              <div class="content-chip-body">
+                <p class="content-chip-kicker">New Recipe</p>
+                <h3 class="content-chip-title">Brothy Sausage</h3>
+                <p class="content-chip-text">Easy weeknight dinner with soft greens, white beans, and bright lemon broth.</p>
+              </div>
+            </a>
+          </article>
+        </article>
+      </section>
+
+      <section class="member-home-rcl" aria-label="Read, Cook, Listen">
+        <article class="member-home-rcl-column">
+          <h2>Read</h2>
+          <article class="content-chip">
+            <a class="content-chip-link" href="journal-start-signals.html">
+              <div class="content-chip-media content-chip-media--img-journal" aria-hidden="true"></div>
+              <div class="content-chip-body">
+                <p class="content-chip-kicker">Journal</p>
+                <h3 class="content-chip-title">Start with Signals</h3>
+                <p class="content-chip-text">A short reset on what your skin and energy are communicating this week.</p>
+              </div>
+            </a>
+          </article>
+        </article>
+        <article class="member-home-rcl-column">
+          <h2>Cook</h2>
+          <article class="content-chip">
+            <a class="content-chip-link" href="recipe-golden-miso.html">
+              <div class="content-chip-media content-chip-media--img-miso" aria-hidden="true"></div>
+              <div class="content-chip-body">
+                <p class="content-chip-kicker">Recipe</p>
+                <h3 class="content-chip-title">Golden Miso Greens</h3>
+                <p class="content-chip-text">A warm, mineral-rich bowl made for low-effort nights and steady mornings.</p>
+              </div>
+            </a>
+          </article>
+        </article>
+        <article class="member-home-rcl-column">
+          <h2>Listen</h2>
+          <article class="content-chip">
+            <a class="content-chip-link" href="playlist-current.html">
+              <div class="content-chip-media content-chip-media--img-playlist-current" aria-hidden="true"></div>
+              <div class="content-chip-body">
+                <p class="content-chip-kicker">Playlist</p>
+                <h3 class="content-chip-title">Steady Morning Mix</h3>
+                <p class="content-chip-text">Low-lift focus tracks for routine blocks, prep, and gentle transitions.</p>
+              </div>
+            </a>
+          </article>
         </article>
       </section>
     </main>
 
-    <footer class="trs-footer">The Routine Service</footer><script src="app.js"></script>
+    <footer class="site-footer offerings-footer">The Routine Service</footer><script src="app.js"></script>
   </body>
 </html>
