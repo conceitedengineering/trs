@@ -1,8 +1,9 @@
-const path = window.location.pathname.split('/').pop() || 'index.html';
+const rawPath = window.location.pathname.split('/').pop() || 'index.html';
+const path = rawPath.includes('.') ? rawPath : `${rawPath}.html`;
 const NAV_PAGE_LABELS = {
   'index.html': 'Home',
   'about.html': 'About',
-  'services.html': 'Offerings',
+  'offerings.html': 'Offerings',
   'contact.html': 'Contact',
   'terms.html': 'Terms',
   'disclaimer.html': 'Disclaimer',
@@ -65,26 +66,39 @@ let bodyOverflowBeforePublicNav = '';
 
 const isPublicNavOpen = () => document.body.classList.contains('public-nav-open');
 
+if (publicNavOverlay) {
+  publicNavOverlay.inert = true;
+}
+
 const setPublicNav = (open) => {
   if (!publicNavToggle || !publicNavOverlay) return;
 
   window.clearTimeout(publicNavCloseTimer);
   publicNavToggle.setAttribute('aria-expanded', String(open));
+  const shouldLockBody =
+    !publicNavOverlay.classList.contains('nav1-overlay') &&
+    !publicNavOverlay.classList.contains('nav2-overlay');
 
   if (open) {
-    if (!isPublicNavOpen()) {
+    if (shouldLockBody && !isPublicNavOpen()) {
       bodyOverflowBeforePublicNav = document.body.style.overflow;
     }
-    document.body.style.overflow = 'hidden';
+    if (shouldLockBody) {
+      document.body.style.overflow = 'hidden';
+    }
     publicNavOverlay.hidden = false;
+    publicNavOverlay.inert = false;
     window.requestAnimationFrame(() => {
       document.body.classList.add('public-nav-open');
     });
     return;
   }
 
+  publicNavOverlay.inert = true;
   document.body.classList.remove('public-nav-open');
-  document.body.style.overflow = bodyOverflowBeforePublicNav;
+  if (shouldLockBody) {
+    document.body.style.overflow = bodyOverflowBeforePublicNav;
+  }
 
   publicNavCloseTimer = window.setTimeout(() => {
     if (!isPublicNavOpen()) {
@@ -140,7 +154,8 @@ document.querySelectorAll('[data-nav-link]').forEach((link) => {
 
 const nav1Bar = document.querySelector('.nav1-bar');
 const nav1Menu = nav1Bar?.querySelector('.nav1-menu');
-if (path !== 'index.html' && nav1Bar && nav1Menu && !nav1Bar.querySelector('.nav1-current')) {
+const shouldShowPublicCurrentTag = path !== 'index.html';
+if (shouldShowPublicCurrentTag && nav1Bar && nav1Menu && !nav1Bar.querySelector('.nav1-current')) {
   const leftCluster = document.createElement('div');
   leftCluster.className = 'nav1-left';
   nav1Bar.insertBefore(leftCluster, nav1Menu);
