@@ -5,6 +5,11 @@ const NAV_PAGE_LABELS = {
   'about.html': 'About',
   'offerings.html': 'Offerings',
   'contact.html': 'Contact',
+  'member-home.html': 'Member Home',
+  'member-home-1.html': 'MemberHome1',
+  'member-home-2.html': 'MemberHome2',
+  'member-home-3.html': 'MemberHome3',
+  'legacy-member-home.html': 'LegacyMemberHome',
   'terms.html': 'Terms',
   'disclaimer.html': 'Disclaimer',
   'journal.html': 'Journal',
@@ -25,6 +30,11 @@ const NAV_PAGE_LABELS = {
   'playlist-current.html': 'Playlists',
   'playlist-night-archive.html': 'Playlists',
 };
+
+const MEMBER_HOME_VARIANTS = [
+  { href: 'member-home-1.html', label: 'MemberHome1' },
+  { href: 'member-home-2.html', label: 'MemberHome2' },
+];
 
 const textureHost = document.querySelector('.offerings-bg, .trs-dark-bg, .dark-zone-bg');
 if (textureHost) {
@@ -59,6 +69,7 @@ if (textureHost) {
 
 const publicNavToggle = document.querySelector('[data-public-nav-toggle]');
 const publicNavOverlay = document.querySelector('[data-public-nav-overlay]');
+const publicNavOverlayNav = publicNavOverlay?.querySelector('.offerings-public-overlay-nav');
 const publicNavLinks = Array.from(document.querySelectorAll('.offerings-public-overlay .overlay-link'));
 const PUBLIC_NAV_CLOSE_MS = 260;
 let publicNavCloseTimer = null;
@@ -68,6 +79,26 @@ const isPublicNavOpen = () => document.body.classList.contains('public-nav-open'
 
 if (publicNavOverlay) {
   publicNavOverlay.inert = true;
+}
+
+if (publicNavOverlayNav && publicNavOverlay?.classList.contains('nav2-overlay')) {
+  MEMBER_HOME_VARIANTS.forEach(({ href, label }) => {
+    let link = publicNavOverlayNav.querySelector(`a[href="${href}"]`);
+
+    if (!link) {
+      link = document.createElement('a');
+      link.href = href;
+      link.className = 'overlay-link';
+      link.dataset.navLink = '';
+      publicNavOverlayNav.appendChild(link);
+    }
+
+    link.textContent = label;
+  });
+
+  Array.from(publicNavOverlayNav.querySelectorAll('.overlay-link')).forEach((link, index) => {
+    link.style.setProperty('--i', index);
+  });
 }
 
 const setPublicNav = (open) => {
