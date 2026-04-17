@@ -6,6 +6,7 @@ const NAV_PAGE_LABELS = {
   'offerings.html': 'Offerings',
   'contact.html': 'Contact',
   'member-home.html': 'Member Home',
+  'member-home-final.html': 'Member Home',
   'member-home-1.html': 'MemberHome1',
   'member-home-2.html': 'MemberHome2',
   'member-home-3.html': 'MemberHome3',
@@ -32,9 +33,91 @@ const NAV_PAGE_LABELS = {
 };
 
 const MEMBER_HOME_VARIANTS = [
-  { href: 'member-home-1.html', label: 'MemberHome1' },
-  { href: 'member-home-2.html', label: 'MemberHome2' },
+  { href: 'member-home-final.html', label: 'Member Home' },
 ];
+
+const PUBLIC_GLOBAL_NAV_PAGES = new Set([
+  'index.html',
+  'offerings.html',
+  'about.html',
+  'contact.html',
+  'terms.html',
+  'disclaimer.html',
+]);
+
+const getGlobalNavMode = () => (PUBLIC_GLOBAL_NAV_PAGES.has(path) ? 'public' : 'member');
+
+const getGlobalNavActiveKey = (mode) => {
+  if (mode === 'public') {
+    if (path === 'offerings.html') return 'offerings';
+    if (path === 'about.html') return 'about';
+    if (path === 'contact.html') return 'contact';
+    return '';
+  }
+
+  if (path.startsWith('journal')) return 'read';
+  if (path.startsWith('recipe')) return 'cook';
+  if (path.startsWith('playlist')) return 'listen';
+  return 'method';
+};
+
+const mountGlobalTopNav = () => {
+  const navBar = document.querySelector('.member-home-final-nav, .nav1-bar, .nav2-bar');
+  if (!navBar) return;
+
+  const navHeader = navBar.closest('header');
+  if (navHeader) {
+    navHeader.classList.add('trs-global-header');
+    navHeader.classList.remove('member-home-final-header', 'nav1-header', 'nav1-header--light', 'nav1-header--dark', 'nav2-header');
+  }
+
+  navBar.classList.remove('member-home-final-nav', 'nav1-bar', 'nav2-bar');
+  navBar.classList.add('trs-global-nav');
+
+  const mode = getGlobalNavMode();
+  const activeKey = getGlobalNavActiveKey(mode);
+  const centerLinks =
+    mode === 'member'
+      ? [
+          { key: 'method', href: 'method-content.html', label: 'Method' },
+          { key: 'read', href: 'journal.html', label: 'Read' },
+          { key: 'cook', href: 'recipes.html', label: 'Cook' },
+          { key: 'listen', href: 'playlists.html', label: 'Listen' },
+        ]
+      : [
+          { key: 'offerings', href: 'offerings.html', label: 'Offerings' },
+          { key: 'about', href: 'about.html', label: 'About' },
+          { key: 'contact', href: 'contact.html', label: 'Contact' },
+        ];
+
+  const centerMarkup = centerLinks
+    .map(({ key, href, label }) => {
+      const isCurrent = key === activeKey;
+      return `<a href="${href}"${isCurrent ? ' aria-current="page"' : ''}>${label}</a>`;
+    })
+    .join('');
+
+  navBar.innerHTML = `
+    <a class="trs-global-wordmark" href="index.html">THE ROUTINE SERVICE</a>
+    <div class="trs-global-nav-center">${centerMarkup}</div>
+    <div class="trs-global-nav-icons">
+      <a class="trs-global-icon-link" href="offerings.html" aria-label="Shop">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 8h12l-1 11H7L6 8Z"></path>
+          <path d="M9 9V7a3 3 0 0 1 6 0v2"></path>
+        </svg>
+      </a>
+      <a class="trs-global-icon-link" href="member-home-final.html" aria-label="Account">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.25"></circle>
+          <path d="M6.5 18.5a5.5 5.5 0 0 1 11 0"></path>
+        </svg>
+      </a>
+    </div>
+  `;
+};
+
+mountGlobalTopNav();
 
 const textureHost = document.querySelector('.offerings-bg, .trs-dark-bg, .dark-zone-bg');
 if (textureHost) {
