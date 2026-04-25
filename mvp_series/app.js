@@ -98,15 +98,11 @@ const mountGlobalTopNav = () => {
     .join('');
 
   navBar.innerHTML = `
-    <a class="trs-global-wordmark" href="index.html">THE ROUTINE SERVICE</a>
+    <a class="trs-global-wordmark" href="index.html" aria-label="The Routine Service">
+      <img src="assets/TRS_Wordmark.svg" alt="" />
+    </a>
     <div class="trs-global-nav-center">${centerMarkup}</div>
     <div class="trs-global-nav-icons">
-      <a class="trs-global-icon-link" href="offerings.html" aria-label="Shop">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M6 8h12l-1 11H7L6 8Z"></path>
-          <path d="M9 9V7a3 3 0 0 1 6 0v2"></path>
-        </svg>
-      </a>
       <a class="trs-global-icon-link" href="member-home-final.html" aria-label="Account">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="8" r="3.25"></circle>
